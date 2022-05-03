@@ -5,9 +5,14 @@ on:
   pull_request:
     types: [closed, assigned]
 
+env:
+  ENV: all jobs can see
+
 jobs:
   run-github-actions: 
     runs-on: ubuntu-latest
+    env:
+      JOB_ENV: env numbrt 2
     steps:
       - name: list files
         run: |
@@ -26,3 +31,7 @@ jobs:
           who-to-greet: yuval
       - name: log greeting time
         run: echo "${{ steps.greet.outputs.time }}"
+      - name: print env variables
+        run: |
+          echo "first var": ${ENV}
+          echo "second var": ${JOB_ENV}
